@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, Usuario, Planeta, Personaje, Vehicle, Favorito
+from models import db, Usuario, Planeta
 #from models import Person
 
 app = Flask(__name__)
@@ -41,7 +41,6 @@ def sitemap():
 
 @app.route('/usuario', methods=['GET'])
 def get_usuario():
-
     results = Usuario.query.all()
     users_list = list(map(lambda item: item.serialize(),results))
 
@@ -59,9 +58,7 @@ def get_usuario():
 
 @app.route('/usuario/<int:id>', methods=['GET'])
 def get_usuario_individual(id):
-
     results_ind = Usuario.query.filter_by(id=id).first()
-
 
     response_body = {
     "msg": "Hello, this is your GET /user response ",
@@ -77,10 +74,8 @@ def get_usuario_individual(id):
 
 @app.route('/planeta', methods=['GET'])
 def get_planets():
-
     results_planet = Planeta.query.all()
     users_list = list(map(lambda item: item.serialize(),results_planet))
-
 
     response_body = {
         "msg": "Hello, this is your GET /planeta response ",
@@ -95,17 +90,15 @@ def get_planets():
 
 @app.route('/planeta/<int:id>', methods=['GET'])
 def get_planeta_individual(id):
-
     results_planeta = Planeta.query.filter_by(id=id).first()
-
 
     response_body = {
     "msg": "Hello, this is your GET /planeta response ",
     "result": results_planeta.serialize()
     }
 
-
     return jsonify(response_body), 200
+
 
 
 
